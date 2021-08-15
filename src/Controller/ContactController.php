@@ -20,10 +20,7 @@ class ContactController extends AbstractController
      */
     public function index()
     {
-
-        return $this->render('contact/index.html.twig', [
-
-        ]);
+        return $this->render('contact/index.html.twig');
     }
 
     /**
@@ -41,7 +38,7 @@ class ContactController extends AbstractController
             $em->persist($contact);
             $em->flush();
 
-            $this->addFlash('success', 'votre message a été envoyé avec succès');
+            $this->addFlash('success', 'Votre message a été envoyé avec succès');
             return $this->redirectToRoute('contact_home');
         }
 
