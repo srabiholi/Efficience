@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ContactRepository;
+
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ContactRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ContactRepository::class)
@@ -15,32 +18,60 @@ class Contact
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     * min = 2,
+     * minMessage = "le nom doit comporter au moins {{ limit }} caractères"
+     * )
+     */
+    private string $name;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     * min = 2,
+     * minMessage = "le prénom doit comporter au moins {{ limit }} caractères"
+     * )
+     */
+    private string $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private string $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     * min = 5,
+     * max = 250,
+     * minMessage = "le message doit comporter au moins {{ limit }} caractères",
+     * maxMessage = "le message ne doit pas dépasser {{ limit }} caractères"
+     * )
      */
-    private $firstname;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $email;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $message;
+    private string $message;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    private DateTime $createdAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Department::class, inversedBy="contacts")
+     * @ORM\JoinColumn(nullable=false) 
+     */
+    private Department $department;
+
+    public function __construct()
+    {
+        $this->createdAt = new DateTime;
+    }
 
     public function getId(): ?int
     {
@@ -103,6 +134,18 @@ class Contact
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getDepartment(): ?Department
+    {
+        return $this->department;
+    }
+
+    public function setDepartment(?Department $department): self
+    {
+        $this->department = $department;
 
         return $this;
     }
