@@ -1,0 +1,14 @@
+<h1>Fiche Contact</h1>
+
+<ul>
+    <li><strong>Nom : </strong>{{ contact.name }}</li>
+    <li><strong>Prénom : </strong>{{ contact.firstname }}</li>
+    <li><strong>Email : </strong>{{ contact.email }}</li>
+</ul>
+
+<h3>Message</h3>
+
+<p>{{ contact.message }}</p>
+
+
+<p>le, {{ contact.createdAt| date("m/d/Y") }}</p>
