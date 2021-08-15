@@ -1,8 +1,8 @@
 contact:
-  name: 'Nom'
-  firstname: 'Prénom'
-  email: 'Email'
-  message: 'Message'
-  department: 'Selectionner le service conserné'
-  labelName: '-- Choisir un service --'
-  submit: 'Envoyer'
+  name: "Nom"
+  firstname: "Prénom"
+  email: "Email"
+  message: "Message"
+  department: "Selectionner le service concerné"
+  labelName: "-- Choisir un service --"
+  submit: "Envoyer"
